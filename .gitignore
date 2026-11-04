@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+build/
+
+# Testing
+coverage/
+
+# Local runtime data (progress mirror)
+app/.data/
+.data/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Env / logs / OS
+.env*.local
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db

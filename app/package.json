@@ -1,0 +1,38 @@
+{
+  "name": "netquest-protocol-architect",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NetQuest: Protocol Architect — interactive networking study game over Lectures.json",
+  "scripts": {
+    "sync:lectures": "node scripts/sync-lectures.mjs",
+    "dev": "node scripts/sync-lectures.mjs && next dev",
+    "build": "node scripts/sync-lectures.mjs && next build",
+    "start": "next start",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.67.0",
+    "motion": "^14.9.0",
+    "next": "^16.4.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwind-merge": "^3.7.0",
+    "zustand": "^5.0.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.4",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "jsdom": "^30.1.3",
+    "postcss": "^8.5.32",
+    "tailwindcss": "^4.3.4",
+    "typescript": "^5.9.3",
+    "vitest": "^5.1.0"
+  }
+}
