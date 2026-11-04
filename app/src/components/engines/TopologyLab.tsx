@@ -181,17 +181,29 @@ export function TopologyLab({
             const Icon = getNodeIcon(node.type);
             const isTarget = currentChallenge?.targetNodeId === node.id;
 
+            const handleNodeClick = () => {
+              const challengeIdx = config.challenges.findIndex(
+                (c) => c.targetNodeId === node.id,
+              );
+              if (challengeIdx >= 0) {
+                soundEffects.playClick(audioMuted);
+                setActiveChallengeIdx(challengeIdx);
+              }
+            };
+
             return (
               <div
                 key={node.id}
+                onClick={handleNodeClick}
                 className="absolute transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center group cursor-pointer"
                 style={{ left: `${node.x}%`, top: `${node.y}%` }}
+                title={`Click to inspect component: ${node.label}`}
               >
                 <div
                   className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-all shadow-lg ${
                     isTarget
-                      ? 'border-cyan-400 bg-cyan-950/80 text-cyan-300 ring-4 ring-cyan-400/20 scale-110'
-                      : 'border-slate-700 bg-slate-900 text-slate-300 group-hover:border-slate-500'
+                      ? 'border-cyan-400 bg-cyan-950/80 text-cyan-300 ring-4 ring-cyan-400/30 scale-110'
+                      : 'border-slate-700 bg-slate-900 text-slate-300 group-hover:border-cyan-500/60 group-hover:scale-105'
                   }`}
                 >
                   <Icon className="h-5 w-5" />
@@ -199,8 +211,8 @@ export function TopologyLab({
                 <span
                   className={`mt-1 font-mono text-[10px] font-bold px-1.5 py-0.5 rounded border ${
                     isTarget
-                      ? 'bg-cyan-950 text-cyan-200 border-cyan-500/50'
-                      : 'bg-slate-900/90 text-slate-300 border-slate-800'
+                      ? 'bg-cyan-950 text-cyan-200 border-cyan-500/50 shadow-sm shadow-cyan-500/20'
+                      : 'bg-slate-900/90 text-slate-300 border-slate-800 group-hover:text-cyan-300'
                   }`}
                 >
                   {node.label}

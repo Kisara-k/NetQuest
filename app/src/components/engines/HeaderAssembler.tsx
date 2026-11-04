@@ -55,24 +55,42 @@ export function HeaderAssembler({
   );
 
   const handleChipClick = (chip: string) => {
-    if (assignedChips.has(chip)) return;
     soundEffects.playClick(audioMuted);
+    // If the chip is already in a slot, unassign it from that slot and select it
+    if (assignedChips.has(chip)) {
+      const currentSlotId = Object.keys(slotAssignments).find(
+        (key) => slotAssignments[key] === chip,
+      );
+      if (currentSlotId) {
+        setSlotAssignments((prev) => {
+          const next = { ...prev };
+          delete next[currentSlotId];
+          return next;
+        });
+      }
+      setSelectedChip(chip);
+      setHasVerifiedSlots(false);
+      return;
+    }
     setSelectedChip((prev) => (prev === chip ? null : chip));
   };
 
   const handleSlotClick = (slotId: string) => {
     soundEffects.playSnap(audioMuted);
     setHasVerifiedSlots(false);
+    const existing = slotAssignments[slotId];
+
     if (selectedChip) {
       setSlotAssignments((prev) => ({ ...prev, [slotId]: selectedChip }));
       setSelectedChip(null);
-    } else if (slotAssignments[slotId]) {
-      // Remove chip from slot
+    } else if (existing) {
+      // Pick up chip from slot into hand
       setSlotAssignments((prev) => {
         const next = { ...prev };
         delete next[slotId];
         return next;
       });
+      setSelectedChip(existing);
     }
   };
 
@@ -247,17 +265,18 @@ export function HeaderAssembler({
               return (
                 <button
                   key={i}
-                  disabled={isAssigned}
                   onClick={() => handleChipClick(chip)}
+                  title={isAssigned ? 'Click to unassign and pick up chip' : 'Click to select chip'}
                   className={`rounded-lg px-3 py-1.5 font-mono text-xs font-medium transition-all ${
-                    isAssigned
-                      ? 'opacity-30 line-through bg-slate-900 border border-slate-800 text-slate-500 cursor-not-allowed'
-                      : isSelected
+                    isSelected
                       ? 'border border-cyan-400 bg-cyan-500/20 text-cyan-200 ring-2 ring-cyan-400/30'
+                      : isAssigned
+                      ? 'border border-slate-800 bg-slate-950/60 text-slate-400 opacity-60 hover:opacity-100 hover:border-slate-600'
                       : 'border border-slate-700 bg-slate-900 text-slate-200 hover:border-cyan-500/50 hover:bg-slate-800'
                   }`}
                 >
                   {chip}
+                  {isAssigned && <span className="ml-1 text-[10px] text-cyan-400/60">✓</span>}
                 </button>
               );
             })}

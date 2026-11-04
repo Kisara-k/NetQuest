@@ -97,7 +97,7 @@ export function ConceptBriefing({ lecture, onLaunchLab }: ConceptBriefingProps) 
 
               {/* Formula or Spec Callout */}
               {concept.formulaOrSpec && (
-                <div className="mb-4 flex items-center gap-2 rounded-lg border border-cyan-500/20 bg-cyan-950/20 px-3.5 py-2 font-mono-numbers text-xs text-cyan-300">
+                <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border border-cyan-500/20 bg-cyan-950/20 px-3.5 py-2 font-mono-numbers text-xs text-cyan-300">
                   <Binary className="h-4 w-4 text-cyan-400 shrink-0" />
                   <span className="font-semibold text-cyan-200">SPEC / FORMULA:</span>
                   <span className="font-mono text-cyan-300">{concept.formulaOrSpec}</span>

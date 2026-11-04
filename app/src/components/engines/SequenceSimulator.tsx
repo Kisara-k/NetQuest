@@ -261,17 +261,40 @@ export function SequenceSimulator({
                 );
               })}
             </div>
+
+            {promptAnswers[currentStep.id] && !promptSolved[currentStep.id] && (
+              <div className="rounded-lg border border-rose-500/30 bg-rose-950/30 p-3 text-xs text-rose-200 flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 text-rose-400 shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-rose-300">Incorrect transition: </span>
+                  <span>Review the state parameters and try one of the other options above.</span>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {/* Interactive Step Success / Diagnostic Feedback */}
         {isInteractive && promptSolved[currentStep.id] && currentStep.explanation && (
-          <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/30 p-3.5 text-xs text-emerald-200 flex items-start gap-2.5">
-            <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-            <div>
-              <span className="font-bold text-emerald-300 mr-1">Protocol Diagnostic:</span>
-              <span>{currentStep.explanation}</span>
+          <div className="rounded-lg border border-emerald-500/40 bg-emerald-950/30 p-4 text-xs text-emerald-200 space-y-3">
+            <div className="flex items-start gap-2.5">
+              <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+              <div>
+                <span className="font-bold text-emerald-300 mr-1">Protocol Diagnostic:</span>
+                <span>{currentStep.explanation}</span>
+              </div>
             </div>
+            {!isAtEnd && (
+              <div className="flex justify-end pt-1">
+                <button
+                  onClick={handleStepForward}
+                  className="flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 px-3.5 py-1.5 text-xs font-bold text-white transition-colors shadow-md shadow-blue-600/20"
+                >
+                  <span>Continue Step Forward</span>
+                  <SkipForward className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

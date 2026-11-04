@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import type { NormalizedLecture } from '@/types/curriculum';
 import { parseRawSlides } from '@/lib/lecture-parser';
-import { Search, FileText, Sparkles, Filter } from 'lucide-react';
+import { Search, FileText, Sparkles, Filter, X } from 'lucide-react';
 
 interface SlideInspectorProps {
   normalizedLecture: NormalizedLecture;
@@ -111,19 +111,28 @@ export function SlideInspector({ normalizedLecture }: SlideInspectorProps) {
         </div>
 
         {/* Live Search Input */}
-        <div className="mt-4 relative">
-          <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400" />
+        <div className="mt-4 relative flex items-center">
+          <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-slate-400 pointer-events-none" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             data-testid="slide-search-input"
             placeholder="Search keywords in lecture slides (e.g., CRC, 1518, 0x8100, SYN, ATM 53B, EUI-64)..."
-            className="w-full rounded-lg border border-slate-700 bg-slate-950/80 pl-10 pr-4 py-2 text-xs text-slate-200 placeholder-slate-500 focus:border-cyan-500 focus:outline-none font-mono"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950/80 pl-10 pr-24 py-2 text-xs text-slate-200 placeholder-slate-500 focus:border-cyan-500 focus:outline-none font-mono"
           />
           {query && (
-            <div className="absolute right-3 top-2 text-[11px] font-mono text-cyan-400">
-              {filteredBlocks.reduce((acc, b) => acc + b.bullets.length, 0)} bullets match
+            <div className="absolute right-3 top-2 flex items-center gap-2">
+              <span className="text-[11px] font-mono text-cyan-400">
+                {filteredBlocks.reduce((acc, b) => acc + b.bullets.length, 0)} matches
+              </span>
+              <button
+                onClick={() => setQuery('')}
+                className="p-0.5 rounded hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
+                title="Clear search"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
             </div>
           )}
         </div>

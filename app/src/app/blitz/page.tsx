@@ -286,8 +286,16 @@ export default function ExamBlitzPage() {
                 <span>{timeLeft}s</span>
               </div>
             ) : (
-              <div className="flex items-center gap-1 text-emerald-400 font-bold">
-                <span>Score: {correctCount}</span>
+              <div className="flex items-center gap-3">
+                <div className="w-24 h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                  <div
+                    className="h-full bg-cyan-400 transition-all duration-300"
+                    style={{ width: `${((currentIndex + 1) / 20) * 100}%` }}
+                  />
+                </div>
+                <div className="flex items-center gap-1 text-emerald-400 font-bold">
+                  <span>Score: {correctCount}</span>
+                </div>
               </div>
             )}
           </div>
@@ -384,13 +392,17 @@ export default function ExamBlitzPage() {
 
                   return (
                     <div key={sector.id} className="flex items-center justify-between text-xs font-mono">
-                      <div className="flex items-center gap-2">
+                      <Link
+                        href={`/lecture/${sector.lectureIds[0]}`}
+                        className="flex items-center gap-2 hover:underline group"
+                        title={`Review missions in ${sector.name}`}
+                      >
                         <span
-                          className="h-2.5 w-2.5 rounded-full"
+                          className="h-2.5 w-2.5 rounded-full shrink-0"
                           style={{ backgroundColor: sector.accent }}
                         />
-                        <span className="text-slate-300 font-sans">{sector.name}</span>
-                      </div>
+                        <span className="text-slate-300 group-hover:text-cyan-300 font-sans">{sector.name}</span>
+                      </Link>
                       <div className="flex items-center gap-2">
                         <span className="text-slate-400">
                           {data.correct} / {data.total}

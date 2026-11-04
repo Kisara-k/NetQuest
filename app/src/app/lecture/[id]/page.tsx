@@ -244,7 +244,7 @@ export default function LecturePage({ params }: LecturePageProps) {
             lectureId={lecture.id}
             lectureTitle={lecture.title}
             onReviewVault={() => router.push('/vault')}
-            onNextLecture={nextId ? () => router.push(`/lecture/${nextId}`) : undefined}
+            onNextLecture={nextId ? () => router.push(`/lecture/${nextId}?tab=briefing`) : undefined}
           />
         )}
 

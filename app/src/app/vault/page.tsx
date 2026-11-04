@@ -91,12 +91,28 @@ export default function MemoryVaultPage() {
     [activeCard, currentCardIndex, filteredCards.length, reviewCard],
   );
 
-  // Keyboard navigation: Space to flip, 1..4 to rate
+  const handlePrevCard = useCallback(() => {
+    soundEffects.playClick(audioMuted);
+    setIsFlipped(false);
+    setCurrentCardIndex((prev) => (prev > 0 ? prev - 1 : filteredCards.length - 1));
+  }, [audioMuted, filteredCards.length]);
+
+  const handleNextCard = useCallback(() => {
+    soundEffects.playClick(audioMuted);
+    setIsFlipped(false);
+    setCurrentCardIndex((prev) => (prev < filteredCards.length - 1 ? prev + 1 : 0));
+  }, [audioMuted, filteredCards.length]);
+
+  // Keyboard navigation: Space to flip, 1..4 to rate, Arrow keys to navigate
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Space') {
         e.preventDefault();
         handleFlip();
+      } else if (e.key === 'ArrowLeft') {
+        handlePrevCard();
+      } else if (e.key === 'ArrowRight') {
+        handleNextCard();
       } else if (isFlipped) {
         if (e.key === '1') handleRate('again');
         if (e.key === '2') handleRate('hard');
@@ -106,7 +122,7 @@ export default function MemoryVaultPage() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isFlipped, handleFlip, handleRate]);
+  }, [isFlipped, handleFlip, handleRate, handlePrevCard, handleNextCard]);
 
   // Overall stats
   const dueCount = allCards.filter((c) => {
@@ -248,9 +264,27 @@ export default function MemoryVaultPage() {
         <div className="max-w-xl mx-auto space-y-6">
           {/* Card Counter & Tag */}
           <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-            <span className="text-cyan-400 font-bold">
-              CARD {currentCardIndex + 1} OF {filteredCards.length}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-cyan-400 font-bold">
+                CARD {currentCardIndex + 1} OF {filteredCards.length}
+              </span>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={handlePrevCard}
+                  className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
+                  title="Previous Card (←)"
+                >
+                  ◀
+                </button>
+                <button
+                  onClick={handleNextCard}
+                  className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-slate-200 transition-colors"
+                  title="Next / Skip Card (→)"
+                >
+                  ▶
+                </button>
+              </div>
+            </div>
             <div className="flex items-center gap-2">
               <span className="rounded bg-slate-800 px-2 py-0.5 border border-slate-700 text-slate-300">
                 {activeCard.tag}
