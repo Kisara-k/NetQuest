@@ -63,7 +63,7 @@ export default function LecturePage({ params }: LecturePageProps) {
   const nextId = lectureId < 14 ? lectureId + 1 : null;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-full min-w-0">
       {/* Top Navigation & Breadcrumbs */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3">
@@ -165,7 +165,7 @@ export default function LecturePage({ params }: LecturePageProps) {
       </div>
 
       {/* 4 Interactive Mission Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-800/80 overflow-x-auto pb-2">
+      <div className="w-full max-w-full min-w-0 flex items-center gap-2 border-b border-slate-800/80 overflow-x-auto pb-2 scrollbar-thin">
         <button
           onClick={() => setActiveTab('briefing')}
           data-testid="tab-briefing"

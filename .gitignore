@@ -12,6 +12,7 @@ coverage/
 # Local runtime data (progress mirror)
 app/.data/
 .data/
+app/public/screenshots/
 
 # TypeScript
 *.tsbuildinfo
