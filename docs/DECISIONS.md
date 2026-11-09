@@ -9,8 +9,8 @@ This document captures the foundational architectural decisions for **NetQuest: 
 - **Status:** Accepted
 - **Date:** 2026-11-04
 - **Context:**
-  The project prompt specifies:
-  > *"Task is to build an nice fluid interactive UI / game to go through and understanding and remembering the content and concepts in Lectures.json (for single user personal use)... To be used next js with pnpm for frontend app (`app/`), and if (and only if) a backend is needed uv with fastapi with the existing local python version (`service/`) and a connecting (`aggregator/`) if needed. The scope of your task is to... make expert architecture decisions that are not over engineered for the scope"*
+  The project requirements specify:
+  > *"Build a fluid, interactive learning application to understand and remember the content and concepts in Lectures.json (for single-user personal use)... Use Next.js with pnpm for the frontend app (`app/`), and if (and only if) a backend is needed, uv with fastapi (`service/`) and a connecting (`aggregator/`). The scope of architecture decisions should be lean and not over-engineered for the scope."*
 - **Decision:**
   We **intentionally omit `service/` (FastAPI) and `aggregator/`** and build the entire application inside **`app/`** as a self-contained **Next.js App Router** application managed with `pnpm`.
 - **Rationale:**

@@ -106,7 +106,7 @@ To ensure deterministic automated testing, components must include the following
 
 ## 4. End-to-End Verification Protocol
 
-After unit tests (`pnpm test --run`) and production build (`pnpm build`) succeed, the agent must verify the live application:
+After unit tests (`pnpm test --run`) and production build (`pnpm build`) succeed, verify the live application:
 
 1. **Server Startup & Route Health Check:**
    Start the Next.js server and verify HTTP `200 OK` and rendered HTML across:

@@ -2,9 +2,9 @@
 
 This document provides the sequential, dependency-ordered execution checklist for building and verifying **NetQuest: Protocol Architect** end-to-end in a single continuous run.
 
-> **Important Reminder for the Executing Agent:**
-> - Build only inside `c:\Dev\Network Study\app` using Next.js (App Router) and `pnpm`. Do **not** create `service/` or `aggregator/` (see [ADR-001](./DECISIONS.md)).
-> - Refer to [`AGENTS.md`](../AGENTS.md) for Windows sandbox rules (`BypassSandbox: true` when running `pnpm` package installation or if the sandbox hides `C:\Users\Kisara\AppData\Local\Author Software\nvm\.nodejs`).
+> **Important Execution Guidelines:**
+> - Build inside `app/` using Next.js (App Router) and `pnpm`. Do **not** create `service/` or `aggregator/` (see [ADR-001](./DECISIONS.md)).
+> - For environment setup and package management, refer to [`AGENTS.md`](../AGENTS.md) or standard Next.js / pnpm workflows.
 
 ---
 
